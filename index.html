@@ -265,13 +265,148 @@
 
     .hero-ticker-dot.active { background: rgba(255,255,255,0.9); }
 
-    .hero-illustration {
+    /* Quick actions panel */
+    .hero-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      width: 300px;
       flex-shrink: 0;
-      width: 320px;
-      height: 280px;
+    }
+
+    .hero-action-card {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 12px;
+      padding: 15px 18px;
+      text-decoration: none;
+      color: white;
+      transition: all 0.2s;
+    }
+
+    .hero-action-card:hover {
+      background: rgba(255,255,255,0.12);
+      border-color: rgba(255,255,255,0.22);
+      transform: translateX(4px);
+    }
+
+    .hero-action-icon { font-size: 20px; flex-shrink: 0; }
+
+    .hero-action-text { flex: 1; }
+
+    .hero-action-label {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+
+    .hero-action-desc {
+      font-size: 12px;
+      opacity: 0.5;
+    }
+
+    .hero-action-arrow {
+      opacity: 0.3;
+      font-size: 14px;
+      flex-shrink: 0;
+      transition: opacity 0.2s;
+    }
+
+    .hero-action-card:hover .hero-action-arrow { opacity: 0.8; }
+
+    /* ===== PARTNER SECTION ===== */
+    .partner-section {
+      background: var(--navy);
+      padding: 72px 48px;
+    }
+
+    .partner-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 64px;
+      align-items: center;
+    }
+
+    .partner-badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.12);
+      color: rgba(255,255,255,0.75);
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      padding: 5px 12px;
+      border-radius: 4px;
+      margin-bottom: 16px;
+    }
+
+    .partner-title {
+      font-size: 34px;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 14px;
+      line-height: 1.2;
+    }
+
+    .partner-desc {
+      font-size: 16px;
+      color: rgba(255,255,255,0.65);
+      line-height: 1.7;
+      max-width: 520px;
+      margin-bottom: 28px;
+    }
+
+    .btn-partner {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: white;
+      color: var(--navy);
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .btn-partner:hover {
+      background: rgba(255,255,255,0.9);
+      transform: translateY(-1px);
+    }
+
+    .partner-perks {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .partner-perk {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: rgba(255,255,255,0.75);
+      font-size: 15px;
+    }
+
+    .partner-perk::before {
+      content: '✓';
       display: flex;
       align-items: center;
       justify-content: center;
+      width: 22px;
+      height: 22px;
+      background: rgba(255,255,255,0.12);
+      border-radius: 50%;
+      font-size: 11px;
+      font-weight: 700;
+      flex-shrink: 0;
+      color: white;
     }
 
     /* ===== SHARED SECTION ===== */
@@ -825,45 +960,39 @@
         </div>
       </div>
     </div>
-    <div class="hero-illustration">
-      <svg viewBox="0 0 320 280" xmlns="http://www.w3.org/2000/svg" fill="none" width="100%" height="100%">
-        <!-- Concentric rings -->
-        <circle cx="160" cy="140" r="118" stroke="rgba(255,255,255,0.06)" stroke-width="1.5"/>
-        <circle cx="160" cy="140" r="88"  stroke="rgba(255,255,255,0.08)" stroke-width="1.5"/>
-        <circle cx="160" cy="140" r="58"  stroke="rgba(255,255,255,0.1)"  stroke-width="1.5"/>
-
-        <!-- Voice waveform -->
-        <path d="M 55 140 Q 75 108 95 140 Q 115 172 135 140 Q 155 108 175 140 Q 195 172 215 140 Q 235 108 255 140 Q 265 156 270 140"
-              stroke="rgba(255,255,255,0.65)" stroke-width="2.5" stroke-linecap="round"/>
-
-        <!-- Outer glow on waveform -->
-        <path d="M 55 140 Q 75 108 95 140 Q 115 172 135 140 Q 155 108 175 140 Q 195 172 215 140 Q 235 108 255 140 Q 265 156 270 140"
-              stroke="rgba(255,255,255,0.12)" stroke-width="8" stroke-linecap="round"/>
-
-        <!-- Logo dot ring, outer orbit -->
-        <circle cx="160" cy="22"   r="6" fill="rgba(255,255,255,0.25)"/>
-        <circle cx="213" cy="37"   r="6" fill="rgba(255,255,255,0.18)"/>
-        <circle cx="248" cy="87"   r="6" fill="rgba(255,255,255,0.22)"/>
-        <circle cx="248" cy="193"  r="6" fill="rgba(255,255,255,0.18)"/>
-        <circle cx="213" cy="243"  r="6" fill="rgba(255,255,255,0.14)"/>
-        <circle cx="160" cy="258"  r="6" fill="rgba(255,255,255,0.20)"/>
-        <circle cx="107" cy="243"  r="6" fill="rgba(255,255,255,0.14)"/>
-        <circle cx="72"  cy="193"  r="6" fill="rgba(255,255,255,0.18)"/>
-        <circle cx="72"  cy="87"   r="6" fill="rgba(255,255,255,0.22)"/>
-        <circle cx="107" cy="37"   r="6" fill="rgba(255,255,255,0.18)"/>
-
-        <!-- Center pulse -->
-        <circle cx="160" cy="140" r="22" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.18)" stroke-width="1"/>
-        <circle cx="160" cy="140" r="10" fill="rgba(255,255,255,0.55)"/>
-
-        <!-- Connecting lines from center to outer dots -->
-        <line x1="160" y1="140" x2="160" y2="28"  stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
-        <line x1="160" y1="140" x2="248" y2="87"  stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
-        <line x1="160" y1="140" x2="248" y2="193" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
-        <line x1="160" y1="140" x2="160" y2="252" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
-        <line x1="160" y1="140" x2="72"  y2="193" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
-        <line x1="160" y1="140" x2="72"  y2="87"  stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
-      </svg>
+    <div class="hero-actions">
+      <a class="hero-action-card" href="/c/support-help">
+        <span class="hero-action-icon">💬</span>
+        <div class="hero-action-text">
+          <div class="hero-action-label">Ask a question</div>
+          <div class="hero-action-desc">Get help from the community</div>
+        </div>
+        <span class="hero-action-arrow">→</span>
+      </a>
+      <a class="hero-action-card" href="https://docs.google.com/forms/d/e/1FAIpQLScQAm4GxtLBC6riqW2sXa5osp3WB0VHbZ2cOSWgBgOkyXtNsA/viewform" target="_blank" rel="noopener">
+        <span class="hero-action-icon">⚠️</span>
+        <div class="hero-action-text">
+          <div class="hero-action-label">Report an outage</div>
+          <div class="hero-action-desc">Submit a bug or service issue</div>
+        </div>
+        <span class="hero-action-arrow">→</span>
+      </a>
+      <a class="hero-action-card" href="/c/feature-requests">
+        <span class="hero-action-icon">💡</span>
+        <div class="hero-action-text">
+          <div class="hero-action-label">Request a feature</div>
+          <div class="hero-action-desc">Submit and vote on ideas</div>
+        </div>
+        <span class="hero-action-arrow">→</span>
+      </a>
+      <a class="hero-action-card" href="/c/tutorials">
+        <span class="hero-action-icon">📖</span>
+        <div class="hero-action-text">
+          <div class="hero-action-label">Browse tutorials</div>
+          <div class="hero-action-desc">Step-by-step guides and tips</div>
+        </div>
+        <span class="hero-action-arrow">→</span>
+      </a>
     </div>
   </section>
 
@@ -1071,6 +1200,27 @@
       </a>
     </div>
   </div>
+
+  <!-- ===== CERTIFIED PARTNER ===== -->
+  <section class="partner-section">
+    <div class="partner-inner">
+      <div class="partner-content">
+        <div class="partner-badge">Certified Partner Program</div>
+        <h2 class="partner-title">Build a business on Retell AI</h2>
+        <p class="partner-desc">Join our certified partner network and get access to exclusive leads, early product features, dedicated support, and co-marketing opportunities to grow your voice AI practice.</p>
+        <a href="https://retell-partner-portal.lovable.app/" class="btn-partner" target="_blank" rel="noopener">
+          Become a Certified Partner →
+        </a>
+      </div>
+      <div class="partner-perks">
+        <div class="partner-perk">Exclusive client leads</div>
+        <div class="partner-perk">Early feature access</div>
+        <div class="partner-perk">Dedicated support channel</div>
+        <div class="partner-perk">Co-marketing opportunities</div>
+        <div class="partner-perk">Partner directory listing</div>
+      </div>
+    </div>
+  </section>
 
   <!-- ===== FOOTER ===== -->
   <footer class="site-footer">
