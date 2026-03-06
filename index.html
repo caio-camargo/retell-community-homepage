@@ -178,22 +178,92 @@
 
     .hero-search button:hover { background: var(--navy-light); }
 
-    .hero-stats {
-      display: flex;
-      gap: 48px;
-      margin-top: 40px;
+    /* Ticker */
+    .hero-ticker {
+      margin-top: 36px;
     }
 
-    .hero-stat-value {
-      font-size: 30px;
+    .hero-ticker-label {
+      font-size: 11px;
       font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      opacity: 0.45;
+      margin-bottom: 12px;
     }
 
-    .hero-stat-label {
-      font-size: 13px;
-      opacity: 0.65;
-      margin-top: 4px;
+    .hero-ticker-track {
+      position: relative;
+      height: 52px;
     }
+
+    .hero-ticker-item {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: white;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      pointer-events: none;
+    }
+
+    .hero-ticker-item.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .hero-ticker-cat {
+      background: rgba(255,255,255,0.15);
+      padding: 3px 10px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .hero-ticker-title {
+      font-size: 15px;
+      font-weight: 500;
+      opacity: 0.9;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .hero-ticker-arrow {
+      opacity: 0.4;
+      flex-shrink: 0;
+      font-size: 14px;
+    }
+
+    .hero-ticker-item:hover .hero-ticker-arrow { opacity: 0.9; }
+
+    .hero-ticker-dots {
+      display: flex;
+      gap: 6px;
+      margin-top: 14px;
+    }
+
+    .hero-ticker-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.25);
+      transition: background 0.3s;
+      cursor: pointer;
+      border: none;
+      padding: 0;
+    }
+
+    .hero-ticker-dot.active { background: rgba(255,255,255,0.9); }
 
     .hero-illustration {
       flex-shrink: 0;
@@ -748,18 +818,13 @@
         <input type="text" placeholder="Search the community…">
         <button>Search</button>
       </div>
-      <div class="hero-stats">
-        <div>
-          <div class="hero-stat-value" id="stat-members">—</div>
-          <div class="hero-stat-label">Members</div>
+      <div class="hero-ticker">
+        <div class="hero-ticker-label">People are discussing</div>
+        <div class="hero-ticker-track" id="ticker-track">
+          <!-- populated by JS -->
         </div>
-        <div>
-          <div class="hero-stat-value" id="stat-topics">—</div>
-          <div class="hero-stat-label">Topics</div>
-        </div>
-        <div>
-          <div class="hero-stat-value" id="stat-posts">—</div>
-          <div class="hero-stat-label">Posts</div>
+        <div class="hero-ticker-dots" id="ticker-dots">
+          <!-- populated by JS -->
         </div>
       </div>
     </div>
@@ -986,18 +1051,63 @@
   </footer>
 
   <script>
-    // ===== DISCOURSE STATS =====
-    fetch('https://community.retellai.com/about.json')
+    // ===== TOPIC TICKER =====
+    const TICKER_FALLBACK = [
+      { title: 'How do I handle interruptions mid-sentence?',           category: 'Support Help',     url: '#' },
+      { title: 'Custom LLM integration — best practices',               category: 'Tutorials',        url: '#' },
+      { title: 'Feature Request: Dynamic voice switching per call',     category: 'Feature Requests', url: '#' },
+      { title: 'Webhook not firing on call end — anyone else?',         category: 'Support Help',     url: '#' },
+      { title: 'Announcing Retell AI v2.4 — new STT model',            category: 'Announcements',    url: '#' },
+    ];
+
+    function initTicker(topics) {
+      const track  = document.getElementById('ticker-track');
+      const dotsEl = document.getElementById('ticker-dots');
+      let current  = 0;
+      let timer;
+
+      track.innerHTML = topics.map((t, i) => `
+        <a class="hero-ticker-item${i === 0 ? ' active' : ''}" href="${t.url}">
+          <span class="hero-ticker-cat">${t.category}</span>
+          <span class="hero-ticker-title">${t.title}</span>
+          <span class="hero-ticker-arrow">→</span>
+        </a>`).join('');
+
+      dotsEl.innerHTML = topics.map((_, i) =>
+        `<button class="hero-ticker-dot${i === 0 ? ' active' : ''}" data-idx="${i}" aria-label="Topic ${i + 1}"></button>`
+      ).join('');
+
+      const items = track.querySelectorAll('.hero-ticker-item');
+      const dots  = dotsEl.querySelectorAll('.hero-ticker-dot');
+
+      function goTo(idx) {
+        items[current].classList.remove('active');
+        dots[current].classList.remove('active');
+        current = (idx + topics.length) % topics.length;
+        items[current].classList.add('active');
+        dots[current].classList.add('active');
+      }
+
+      dots.forEach(d => d.addEventListener('click', () => {
+        clearInterval(timer);
+        goTo(parseInt(d.dataset.idx));
+        timer = setInterval(() => goTo(current + 1), 4500);
+      }));
+
+      timer = setInterval(() => goTo(current + 1), 4500);
+    }
+
+    // Try live topics; fall back to mocked data (e.g. on GitHub Pages due to CORS)
+    fetch('https://community.retellai.com/latest.json')
       .then(r => r.json())
       .then(data => {
-        const stats = data.about?.stats;
-        if (!stats) return;
-        const fmt = n => n >= 1000 ? (n / 1000).toFixed(1) + 'k' : n;
-        document.getElementById('stat-members').textContent = fmt(stats.user_count || 0);
-        document.getElementById('stat-topics').textContent = fmt(stats.topic_count || 0);
-        document.getElementById('stat-posts').textContent = fmt(stats.post_count || 0);
+        const topics = (data.topic_list?.topics || [])
+          .filter(t => !t.pinned && t.posts_count > 0)
+          .slice(0, 5)
+          .map(t => ({ title: t.title, category: 'Community', url: `/t/${t.slug}/${t.id}` }));
+        initTicker(topics.length >= 3 ? topics : TICKER_FALLBACK);
       })
-      .catch(() => { /* static preview — dashes are fine */ });
+      .catch(() => initTicker(TICKER_FALLBACK));
 
     // ===== STATUS WIDGET =====
     const STATUS_API    = 'https://status.retellai.com/api/v2/summary.json';
