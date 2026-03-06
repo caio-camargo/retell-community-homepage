@@ -516,6 +516,153 @@
       line-height: 1.5;
     }
 
+    /* ===== STATUS WIDGET ===== */
+    .status-pill {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border-radius: 50px;
+      border: 1px solid var(--gray-200);
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--gray-700);
+      position: relative;
+      user-select: none;
+      transition: border-color 0.2s;
+      white-space: nowrap;
+    }
+
+    .status-pill:hover { border-color: var(--gray-300); }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #16a34a;
+      flex-shrink: 0;
+      transition: background 0.3s;
+    }
+
+    .status-dot.pulsing {
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    .status-chevron {
+      font-size: 10px;
+      opacity: 0.45;
+      transition: transform 0.2s;
+    }
+
+    .status-pill.open .status-chevron { transform: rotate(180deg); }
+
+    .status-dropdown {
+      position: absolute;
+      top: calc(100% + 10px);
+      right: 0;
+      background: white;
+      border: 1px solid var(--gray-200);
+      border-radius: 12px;
+      padding: 14px;
+      min-width: 270px;
+      box-shadow: 0 8px 28px rgba(0,0,0,0.12);
+      z-index: 200;
+    }
+
+    .status-dropdown-header {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--gray-600);
+      padding-bottom: 10px;
+      margin-bottom: 10px;
+      border-bottom: 1px solid var(--gray-200);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .status-dropdown-header a {
+      font-size: 11px;
+      color: var(--accent);
+      text-decoration: none;
+      text-transform: none;
+      letter-spacing: 0;
+      font-weight: 600;
+    }
+
+    .status-component-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 0;
+      border-bottom: 1px solid var(--gray-100);
+    }
+
+    .status-component-row:last-child { border-bottom: none; }
+
+    .status-dot-sm {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .status-component-name {
+      flex: 1;
+      font-size: 13px;
+      color: var(--gray-800);
+    }
+
+    .status-component-status {
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .status-updated {
+      font-size: 11px;
+      color: var(--gray-600);
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px solid var(--gray-100);
+    }
+
+    /* Incident banner */
+    .status-banner {
+      padding: 12px 48px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 14px;
+      font-weight: 500;
+      border-bottom: 2px solid transparent;
+    }
+
+    .status-banner-icon { font-size: 16px; flex-shrink: 0; }
+
+    .status-banner-text { flex: 1; }
+
+    .status-banner-link {
+      color: inherit;
+      font-weight: 700;
+      text-decoration: none;
+      white-space: nowrap;
+      opacity: 0.85;
+      border: 1px solid currentColor;
+      padding: 3px 10px;
+      border-radius: 4px;
+      font-size: 12px;
+    }
+
+    .status-banner-link:hover { opacity: 1; }
+
     /* ===== FOOTER ===== */
     .site-footer {
       background: var(--navy);
@@ -560,10 +707,33 @@
       <a href="/c/announcements">Announcements</a>
     </nav>
     <div class="header-actions">
+      <!-- Status pill -->
+      <div class="status-pill" id="status-pill" title="System status">
+        <span class="status-dot" id="status-dot"></span>
+        <span id="status-text">Checking…</span>
+        <span class="status-chevron">▾</span>
+        <div class="status-dropdown" id="status-dropdown" hidden>
+          <div class="status-dropdown-header">
+            System Status
+            <a href="https://status.retellai.com" target="_blank" rel="noopener">Full status →</a>
+          </div>
+          <div id="status-components">
+            <!-- populated by JS -->
+          </div>
+          <div class="status-updated" id="status-updated"></div>
+        </div>
+      </div>
       <a href="/login" class="btn btn-ghost">Log in</a>
       <a href="/signup" class="btn btn-primary">Sign up</a>
     </div>
   </header>
+
+  <!-- Incident banner — hidden when all systems operational -->
+  <div class="status-banner" id="status-banner" hidden>
+    <span class="status-banner-icon">⚠️</span>
+    <span class="status-banner-text" id="banner-text"></span>
+    <a class="status-banner-link" href="https://status.retellai.com" target="_blank" rel="noopener">View status →</a>
+  </div>
 
   <!-- ===== HERO ===== -->
   <section class="hero">
@@ -815,7 +985,7 @@
   </footer>
 
   <script>
-    // Attempt to fetch live stats from Discourse (will fail on static/local, that's fine)
+    // ===== DISCOURSE STATS =====
     fetch('https://community.retellai.com/about.json')
       .then(r => r.json())
       .then(data => {
@@ -826,9 +996,106 @@
         document.getElementById('stat-topics').textContent = fmt(stats.topic_count || 0);
         document.getElementById('stat-posts').textContent = fmt(stats.post_count || 0);
       })
-      .catch(() => {
-        // Static preview — leave as dashes, that's fine
-      });
+      .catch(() => { /* static preview — dashes are fine */ });
+
+    // ===== STATUS WIDGET =====
+    const STATUS_API    = 'https://status.retellai.com/api/v2/summary.json';
+    const STATUS_PAGE   = 'https://status.retellai.com';
+    const POLL_MS       = 60_000;
+
+    const INDICATOR = {
+      none:     { dot: '#16a34a', banner: null },
+      minor:    { dot: '#d97706', banner: { bg: '#fffbeb', border: '#d97706', color: '#78350f' } },
+      major:    { dot: '#ea580c', banner: { bg: '#fff7ed', border: '#ea580c', color: '#7c2d12' } },
+      critical: { dot: '#dc2626', banner: { bg: '#fef2f2', border: '#dc2626', color: '#7f1d1d' } },
+    };
+
+    const COMPONENT_STATUS = {
+      operational:          { dot: '#16a34a', label: 'Operational' },
+      degraded_performance: { dot: '#d97706', label: 'Degraded' },
+      partial_outage:       { dot: '#ea580c', label: 'Partial Outage' },
+      major_outage:         { dot: '#dc2626', label: 'Major Outage' },
+      under_maintenance:    { dot: '#6366f1', label: 'Maintenance' },
+    };
+
+    function fmtTime(iso) {
+      if (!iso) return '';
+      return new Date(iso).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    }
+
+    function applyStatus(data) {
+      const { indicator, description } = data.status;
+      const cfg = INDICATOR[indicator] || INDICATOR.none;
+
+      // --- Header pill ---
+      const dot  = document.getElementById('status-dot');
+      const text = document.getElementById('status-text');
+      dot.style.background = cfg.dot;
+      dot.classList.toggle('pulsing', indicator !== 'none');
+      text.textContent = description;
+
+      // --- Component list ---
+      const components = (data.components || []).filter(c => !c.group);
+      const list = document.getElementById('status-components');
+      list.innerHTML = components.map(c => {
+        const cs = COMPONENT_STATUS[c.status] || COMPONENT_STATUS.operational;
+        return `
+          <div class="status-component-row">
+            <span class="status-dot-sm" style="background:${cs.dot}"></span>
+            <span class="status-component-name">${c.name}</span>
+            <span class="status-component-status" style="color:${cs.dot}">${cs.label}</span>
+          </div>`;
+      }).join('');
+
+      // Last updated
+      const updated = document.getElementById('status-updated');
+      updated.textContent = `Updated ${fmtTime(data.page?.updated_at)}`;
+
+      // --- Incident banner ---
+      const banner     = document.getElementById('status-banner');
+      const bannerText = document.getElementById('banner-text');
+
+      if (indicator !== 'none' && cfg.banner) {
+        const activeIncident = (data.incidents || []).find(i => i.status !== 'resolved');
+        bannerText.textContent = activeIncident ? activeIncident.name : description;
+        banner.style.background   = cfg.banner.bg;
+        banner.style.borderColor  = cfg.banner.border;
+        banner.style.color        = cfg.banner.color;
+        banner.hidden = false;
+      } else {
+        banner.hidden = true;
+      }
+    }
+
+    async function fetchStatus() {
+      try {
+        const res  = await fetch(STATUS_API);
+        const data = await res.json();
+        applyStatus(data);
+      } catch (e) { /* silently fail */ }
+    }
+
+    // Pill toggle
+    const pill     = document.getElementById('status-pill');
+    const dropdown = document.getElementById('status-dropdown');
+
+    pill.addEventListener('click', e => {
+      e.stopPropagation();
+      const open = !dropdown.hidden;
+      dropdown.hidden = open;
+      pill.classList.toggle('open', !open);
+    });
+
+    document.addEventListener('click', () => {
+      dropdown.hidden = true;
+      pill.classList.remove('open');
+    });
+
+    dropdown.addEventListener('click', e => e.stopPropagation());
+
+    // Boot
+    fetchStatus();
+    setInterval(fetchStatus, POLL_MS);
   </script>
 
 </body>
