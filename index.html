@@ -464,115 +464,139 @@
       font-weight: 600;
     }
 
-    .topics-table {
-      width: 100%;
-      border-collapse: collapse;
+    /* Topic cards */
+    .topics-list {
+      display: flex;
+      flex-direction: column;
+      border: 1px solid var(--gray-200);
+      border-radius: 12px;
+      overflow: hidden;
     }
 
-    .topics-table thead th {
-      text-align: left;
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      color: var(--gray-600);
-      padding: 0 16px 12px;
-      border-bottom: 1px solid var(--gray-200);
-      text-transform: uppercase;
-    }
-
-    .topics-table thead th:first-child { padding-left: 0; }
-    .topics-table thead th.col-num { text-align: center; width: 80px; }
-    .topics-table thead th.col-time { text-align: center; width: 90px; }
-    .topics-table thead th.col-avatars { width: 100px; }
-
-    .topics-table tbody tr {
+    .topic-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 16px 20px;
+      background: white;
       border-bottom: 1px solid var(--gray-200);
       transition: background 0.15s;
     }
 
-    .topics-table tbody tr:hover { background: var(--gray-100); }
+    .topic-card:last-child { border-bottom: none; }
+    .topic-card:hover { background: var(--gray-100); }
 
-    .topics-table tbody td {
-      padding: 16px;
-      vertical-align: middle;
-    }
-
-    .topics-table tbody td:first-child { padding-left: 0; }
-
-    .topic-title {
-      font-size: 15px;
-      font-weight: 500;
-      color: var(--navy);
-      display: block;
-      margin-bottom: 6px;
-      text-decoration: none;
-    }
-
-    .topic-title:hover { text-decoration: underline; }
-
-    .topic-meta {
+    .topic-poster-avatar {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      flex-shrink: 0;
       display: flex;
       align-items: center;
-      gap: 8px;
+      justify-content: center;
+      font-size: 15px;
+      font-weight: 700;
+      color: white;
+      overflow: hidden;
+      margin-top: 2px;
+    }
+
+    .topic-poster-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .topic-card-body {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .topic-card-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--navy);
+      text-decoration: none;
+      display: block;
+      margin-bottom: 6px;
+      line-height: 1.4;
+    }
+
+    .topic-card-title:hover { text-decoration: underline; }
+
+    .topic-card-badges {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 7px;
       flex-wrap: wrap;
     }
 
     .category-badge {
-      display: inline-block;
-      background: var(--accent-light);
-      color: var(--accent);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      border: 1px solid var(--gray-300);
+      color: var(--gray-700);
       padding: 2px 10px;
-      border-radius: 4px;
-      font-size: 11px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-
-    .topic-tags {
+      border-radius: 20px;
       font-size: 12px;
-      color: var(--gray-600);
+      font-weight: 500;
     }
 
-    .topic-avatars {
+    .topic-card-excerpt {
+      font-size: 13px;
+      color: var(--gray-600);
+      line-height: 1.55;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      margin-bottom: 10px;
+    }
+
+    .topic-card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .topic-card-participants {
       display: flex;
       align-items: center;
     }
 
     .topic-avatar {
-      width: 28px;
-      height: 28px;
+      width: 24px;
+      height: 24px;
       border-radius: 50%;
       background: var(--gray-300);
       border: 2px solid white;
-      margin-left: -6px;
+      margin-left: -5px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 10px;
+      font-size: 9px;
       font-weight: 700;
       color: var(--gray-700);
+      overflow: hidden;
+      flex-shrink: 0;
     }
 
     .topic-avatar:first-child { margin-left: 0; }
 
-    .col-num { text-align: center; }
-    .col-time { text-align: center; }
-
-    .topic-num {
-      font-size: 14px;
-      color: var(--gray-700);
-      font-weight: 500;
+    .topic-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
     }
 
-    .topic-num.highlight {
-      color: var(--navy);
-      font-weight: 700;
-    }
-
-    .topic-time {
-      font-size: 13px;
+    .topic-card-stats {
+      font-size: 12px;
       color: var(--gray-600);
+      white-space: nowrap;
     }
 
     /* ===== CONTRIBUTORS + QUOTE ===== */
@@ -883,94 +907,143 @@
 
     .status-banner-link:hover { opacity: 1; }
 
+    /* ===== NEWSLETTER STRIP ===== */
+    .footer-newsletter {
+      background: linear-gradient(135deg, #0a1628 0%, #1a1060 50%, #0d1f3c 100%);
+      padding: 56px 48px;
+    }
+
+    .footer-newsletter-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 48px;
+    }
+
+    .footer-newsletter-text {
+      font-size: 20px;
+      font-weight: 500;
+      color: white;
+      max-width: 340px;
+      line-height: 1.4;
+    }
+
+    .footer-newsletter-form {
+      display: flex;
+      background: white;
+      border-radius: 100px;
+      overflow: hidden;
+      flex: 1;
+      max-width: 540px;
+      min-width: 0;
+    }
+
+    .footer-newsletter-form input {
+      flex: 1;
+      border: none;
+      outline: none;
+      padding: 16px 24px;
+      font-size: 15px;
+      font-family: inherit;
+      background: transparent;
+      color: var(--gray-800);
+      min-width: 0;
+    }
+
+    .footer-newsletter-form input::placeholder { color: var(--gray-600); }
+
+    .footer-newsletter-form button {
+      background: var(--navy);
+      color: white;
+      border: none;
+      padding: 16px 32px;
+      font-size: 15px;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      border-radius: 100px;
+      transition: background 0.2s;
+      white-space: nowrap;
+    }
+
+    .footer-newsletter-form button:hover { background: #001a45; }
+
     /* ===== FOOTER ===== */
     .site-footer {
-      background: var(--navy);
-      color: rgba(255,255,255,0.5);
+      background: white;
+      color: var(--gray-700);
       font-size: 14px;
+      border-top: 1px solid var(--gray-200);
     }
 
     .site-footer a {
-      color: rgba(255,255,255,0.5);
+      color: var(--gray-700);
       text-decoration: none;
       transition: color 0.2s;
     }
 
-    .site-footer a:hover { color: white; }
+    .site-footer a:hover { color: var(--navy); }
 
     .footer-inner {
       max-width: 1200px;
       margin: 0 auto;
-      padding: 60px 48px 48px;
+      padding: 56px 48px 48px;
       display: grid;
-      grid-template-columns: 2fr 1fr 1fr 1fr;
+      grid-template-columns: 1.6fr 1fr 1fr 1fr;
       gap: 48px;
-      border-bottom: 1px solid rgba(255,255,255,0.1);
+      border-bottom: 1px solid var(--gray-200);
     }
+
+    .footer-section-heading {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 16px;
+    }
+
+    .footer-subheading {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--accent);
+      letter-spacing: 0.03em;
+      margin: 14px 0 6px;
+    }
+
+    .footer-subheading:first-of-type { margin-top: 0; }
+
+    .footer-col {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .footer-col a {
+      font-size: 13px;
+      color: var(--gray-700);
+      padding: 3px 0;
+      line-height: 1.6;
+    }
+
+    .footer-col a:hover { color: var(--navy); }
 
     .footer-logo {
       display: inline-block;
-      margin-bottom: 20px;
+      margin-bottom: 16px;
     }
 
     .footer-logo img {
-      height: 32px;
+      height: 30px;
       width: auto;
       display: block;
-      filter: brightness(0) invert(1);
-      opacity: 0.85;
     }
 
     .footer-tagline {
       font-size: 13px;
       line-height: 1.7;
-      color: rgba(255,255,255,0.4);
+      color: var(--gray-600);
       max-width: 260px;
-      margin-bottom: 24px;
-    }
-
-    .footer-social {
-      display: flex;
-      gap: 10px;
-    }
-
-    .footer-social a {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 34px;
-      height: 34px;
-      border-radius: 8px;
-      background: rgba(255,255,255,0.07);
-      border: 1px solid rgba(255,255,255,0.12);
-      color: rgba(255,255,255,0.55);
-      transition: all 0.2s;
-      flex-shrink: 0;
-    }
-
-    .footer-social a:hover {
-      background: rgba(255,255,255,0.14);
-      border-color: rgba(255,255,255,0.22);
-      color: white;
-    }
-
-    .footer-col {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .footer-col-title {
-      font-size: 11px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.09em;
-      color: rgba(255,255,255,0.35);
-      margin-bottom: 6px;
-    }
-
-    .footer-col a {
-      font-size: 13px;
+      margin-bottom: 0;
     }
 
     .footer-bottom {
@@ -981,7 +1054,14 @@
       justify-content: space-between;
       align-items: center;
       font-size: 12px;
+      color: var(--gray-600);
     }
+
+    .footer-bottom a {
+      color: var(--gray-600);
+    }
+
+    .footer-bottom a:hover { color: var(--navy); }
 
     .footer-legal {
       display: flex;
@@ -989,7 +1069,6 @@
     }
 
     /* Avatars from API */
-    img.topic-avatar,
     img.contributor-avatar {
       object-fit: cover;
       display: block;
@@ -1097,90 +1176,124 @@
     </div>
   </section>
 
+  <!-- ===== CATEGORIES ===== -->
+  <div class="section">
+    <h2 class="section-title">Categories</h2>
+    <div class="categories-grid">
+      <a class="category-card" href="/c/announcements">
+        <div class="category-icon">📢</div>
+        <div class="category-info">
+          <h3>Announcements</h3>
+          <p>Stay up to date with the latest Retell AI news and releases.</p>
+        </div>
+      </a>
+      <a class="category-card" href="/c/support-help">
+        <div class="category-icon">❓</div>
+        <div class="category-info">
+          <h3>Support Help</h3>
+          <p>Have a question? Get help from the community.</p>
+        </div>
+      </a>
+      <a class="category-card" href="/c/tutorials">
+        <div class="category-icon">📚</div>
+        <div class="category-info">
+          <h3>Tutorials</h3>
+          <p>Step-by-step guides for building with Retell AI.</p>
+        </div>
+      </a>
+      <a class="category-card" href="/c/feature-requests">
+        <div class="category-icon">💡</div>
+        <div class="category-info">
+          <h3>Feature Requests</h3>
+          <p>Submit ideas and vote on what gets built next.</p>
+        </div>
+      </a>
+      <a class="category-card" href="/c/feature-roadmap">
+        <div class="category-icon">🗺️</div>
+        <div class="category-info">
+          <h3>Feature Roadmap</h3>
+          <p>See what's coming next on the Retell product roadmap.</p>
+        </div>
+      </a>
+      <a class="category-card" href="/c/hire-a-retell-expert">
+        <div class="category-icon">🤝</div>
+        <div class="category-info">
+          <h3>Hire A Retell Expert</h3>
+          <p>Find certified partners to help build your voice agent.</p>
+        </div>
+      </a>
+    </div>
+  </div>
+
   <!-- ===== COMMUNITY TOPICS ===== -->
   <div class="section">
     <h2 class="section-title">Community Topics</h2>
     <div class="topics-header">
       <span class="tag-pill">Latest</span>
     </div>
-    <table class="topics-table">
-      <thead>
-        <tr>
-          <th>Topic</th>
-          <th class="col-avatars"></th>
-          <th class="col-num">Replies</th>
-          <th class="col-num">Views</th>
-          <th class="col-time">Activity</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>
-            <a class="topic-title" href="#">How do I handle interruptions mid-sentence?</a>
-            <div class="topic-meta">
-              <span class="category-badge">Support Help</span>
-              <span class="topic-tags">interruptions, latency</span>
-            </div>
-          </td>
-          <td><div class="topic-avatars"><div class="topic-avatar">A</div><div class="topic-avatar">B</div><div class="topic-avatar">C</div></div></td>
-          <td class="col-num"><span class="topic-num">12</span></td>
-          <td class="col-num"><span class="topic-num">843</span></td>
-          <td class="col-time"><span class="topic-time">2h</span></td>
-        </tr>
-        <tr>
-          <td>
-            <a class="topic-title" href="#">Custom LLM integration — best practices</a>
-            <div class="topic-meta">
-              <span class="category-badge">Tutorials</span>
-              <span class="topic-tags">llm, custom-llm</span>
-            </div>
-          </td>
-          <td><div class="topic-avatars"><div class="topic-avatar">D</div><div class="topic-avatar">E</div></div></td>
-          <td class="col-num"><span class="topic-num">7</span></td>
-          <td class="col-num"><span class="topic-num highlight">2.1k</span></td>
-          <td class="col-time"><span class="topic-time">5h</span></td>
-        </tr>
-        <tr>
-          <td>
-            <a class="topic-title" href="#">Feature Request: Dynamic voice switching per call</a>
-            <div class="topic-meta">
-              <span class="category-badge">Feature Requests</span>
-              <span class="topic-tags">voice, dynamic, 34 votes</span>
-            </div>
-          </td>
-          <td><div class="topic-avatars"><div class="topic-avatar">F</div><div class="topic-avatar">G</div><div class="topic-avatar">H</div><div class="topic-avatar">I</div></div></td>
-          <td class="col-num"><span class="topic-num">28</span></td>
-          <td class="col-num"><span class="topic-num">1.4k</span></td>
-          <td class="col-time"><span class="topic-time">1d</span></td>
-        </tr>
-        <tr>
-          <td>
-            <a class="topic-title" href="#">Webhook not firing on call end — anyone else?</a>
-            <div class="topic-meta">
-              <span class="category-badge">Support Help</span>
-              <span class="topic-tags">webhooks, call-end</span>
-            </div>
-          </td>
-          <td><div class="topic-avatars"><div class="topic-avatar">J</div><div class="topic-avatar">K</div></div></td>
-          <td class="col-num"><span class="topic-num">5</span></td>
-          <td class="col-num"><span class="topic-num">312</span></td>
-          <td class="col-time"><span class="topic-time">3d</span></td>
-        </tr>
-        <tr>
-          <td>
-            <a class="topic-title" href="#">Announcing Retell AI v2.4 — new STT model</a>
-            <div class="topic-meta">
-              <span class="category-badge">Announcements</span>
-              <span class="topic-tags">release, stt</span>
-            </div>
-          </td>
-          <td><div class="topic-avatars"><div class="topic-avatar">R</div></div></td>
-          <td class="col-num"><span class="topic-num">41</span></td>
-          <td class="col-num"><span class="topic-num highlight">5.7k</span></td>
-          <td class="col-time"><span class="topic-time">1w</span></td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="topics-list">
+      <!-- Populated by JS; static fallback below -->
+      <div class="topic-card">
+        <div class="topic-poster-avatar" style="background:#3b5998">A</div>
+        <div class="topic-card-body">
+          <a class="topic-card-title" href="#">How do I handle interruptions mid-sentence?</a>
+          <div class="topic-card-badges"><span class="category-badge">Support Help</span></div>
+          <div class="topic-card-excerpt">Looking for the best approach to handle mid-sentence interruptions in Retell agents without breaking the conversation flow...</div>
+          <div class="topic-card-footer">
+            <div class="topic-card-participants"><div class="topic-avatar">A</div><div class="topic-avatar">B</div><div class="topic-avatar">C</div></div>
+            <span class="topic-card-stats">12 replies · 843 views · 2h</span>
+          </div>
+        </div>
+      </div>
+      <div class="topic-card">
+        <div class="topic-poster-avatar" style="background:#0f766e">D</div>
+        <div class="topic-card-body">
+          <a class="topic-card-title" href="#">Custom LLM integration — best practices</a>
+          <div class="topic-card-badges"><span class="category-badge">Tutorials</span></div>
+          <div class="topic-card-excerpt">Sharing a few patterns I've found useful when integrating custom LLMs with Retell's streaming API...</div>
+          <div class="topic-card-footer">
+            <div class="topic-card-participants"><div class="topic-avatar">D</div><div class="topic-avatar">E</div></div>
+            <span class="topic-card-stats">7 replies · 2.1k views · 5h</span>
+          </div>
+        </div>
+      </div>
+      <div class="topic-card">
+        <div class="topic-poster-avatar" style="background:#7c3aed">F</div>
+        <div class="topic-card-body">
+          <a class="topic-card-title" href="#">Feature Request: Dynamic voice switching per call</a>
+          <div class="topic-card-badges"><span class="category-badge">Feature Requests</span></div>
+          <div class="topic-card-excerpt">It would be really useful to switch the voice model mid-call based on caller language detection...</div>
+          <div class="topic-card-footer">
+            <div class="topic-card-participants"><div class="topic-avatar">F</div><div class="topic-avatar">G</div><div class="topic-avatar">H</div><div class="topic-avatar">I</div></div>
+            <span class="topic-card-stats">28 replies · 1.4k views · 1d</span>
+          </div>
+        </div>
+      </div>
+      <div class="topic-card">
+        <div class="topic-poster-avatar" style="background:#b45309">J</div>
+        <div class="topic-card-body">
+          <a class="topic-card-title" href="#">Webhook not firing on call end — anyone else?</a>
+          <div class="topic-card-badges"><span class="category-badge">Support Help</span></div>
+          <div class="topic-card-excerpt">I've set up my call_ended webhook but it's not triggering consistently. Seeing about a 20% drop rate...</div>
+          <div class="topic-card-footer">
+            <div class="topic-card-participants"><div class="topic-avatar">J</div><div class="topic-avatar">K</div></div>
+            <span class="topic-card-stats">5 replies · 312 views · 3d</span>
+          </div>
+        </div>
+      </div>
+      <div class="topic-card">
+        <div class="topic-poster-avatar" style="background:#1d4ed8">R</div>
+        <div class="topic-card-body">
+          <a class="topic-card-title" href="#">Announcing Retell AI v2.4 — new STT model</a>
+          <div class="topic-card-badges"><span class="category-badge">Announcements</span></div>
+          <div class="topic-card-excerpt">We're excited to announce Retell AI v2.4, featuring our new low-latency speech-to-text model with improved accuracy...</div>
+          <div class="topic-card-footer">
+            <div class="topic-card-participants"><div class="topic-avatar">R</div></div>
+            <span class="topic-card-stats">41 replies · 5.7k views · 1w</span>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- ===== TOP CONTRIBUTORS + QUOTE ===== -->
@@ -1253,55 +1366,6 @@
     </div>
   </div>
 
-  <!-- ===== CATEGORIES ===== -->
-  <div class="section">
-    <h2 class="section-title">Categories</h2>
-    <div class="categories-grid">
-      <a class="category-card" href="/c/announcements">
-        <div class="category-icon">📢</div>
-        <div class="category-info">
-          <h3>Announcements</h3>
-          <p>Stay up to date with the latest Retell AI news and releases.</p>
-        </div>
-      </a>
-      <a class="category-card" href="/c/support-help">
-        <div class="category-icon">❓</div>
-        <div class="category-info">
-          <h3>Support Help</h3>
-          <p>Have a question? Get help from the community.</p>
-        </div>
-      </a>
-      <a class="category-card" href="/c/tutorials">
-        <div class="category-icon">📚</div>
-        <div class="category-info">
-          <h3>Tutorials</h3>
-          <p>Step-by-step guides for building with Retell AI.</p>
-        </div>
-      </a>
-      <a class="category-card" href="/c/feature-requests">
-        <div class="category-icon">💡</div>
-        <div class="category-info">
-          <h3>Feature Requests</h3>
-          <p>Submit ideas and vote on what gets built next.</p>
-        </div>
-      </a>
-      <a class="category-card" href="/c/feature-roadmap">
-        <div class="category-icon">🗺️</div>
-        <div class="category-info">
-          <h3>Feature Roadmap</h3>
-          <p>See what's coming next on the Retell product roadmap.</p>
-        </div>
-      </a>
-      <a class="category-card" href="/c/hire-a-retell-expert">
-        <div class="category-icon">🤝</div>
-        <div class="category-info">
-          <h3>Hire A Retell Expert</h3>
-          <p>Find certified partners to help build your voice agent.</p>
-        </div>
-      </a>
-    </div>
-  </div>
-
   <!-- ===== CERTIFIED PARTNER ===== -->
   <section class="partner-section">
     <div class="partner-inner">
@@ -1323,76 +1387,80 @@
     </div>
   </section>
 
+  <!-- ===== NEWSLETTER STRIP ===== -->
+  <div class="footer-newsletter">
+    <div class="footer-newsletter-inner">
+      <p class="footer-newsletter-text">Subscribe to our newsletter for our product updates.</p>
+      <form class="footer-newsletter-form" onsubmit="return false;">
+        <input type="email" placeholder="Your email">
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+  </div>
+
   <!-- ===== FOOTER ===== -->
   <footer class="site-footer">
     <div class="footer-inner">
 
-      <!-- Brand -->
-      <div class="footer-brand">
-        <a href="/" class="footer-logo">
-          <img src="https://canada1.discourse-cdn.com/flex008/uploads/retell1/original/1X/f9caf441a372157e871a040ba9e11a5485d7968f.svg" alt="Retell Forum">
-        </a>
-        <p class="footer-tagline">The community for developers building voice AI with Retell AI.</p>
-        <div class="footer-social">
-          <!-- LinkedIn -->
-          <a href="https://www.linkedin.com/company/retellai/" target="_blank" rel="noopener" aria-label="LinkedIn">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
-          </a>
-          <!-- X / Twitter -->
-          <a href="https://x.com/retellai" target="_blank" rel="noopener" aria-label="X (Twitter)">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-          </a>
-          <!-- YouTube -->
-          <a href="https://www.youtube.com/@retellai" target="_blank" rel="noopener" aria-label="YouTube">
-            <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.4a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="var(--navy)"/></svg>
-          </a>
-          <!-- Discord -->
-          <a href="https://discord.com/channels/1186424376300679209" target="_blank" rel="noopener" aria-label="Discord">
-            <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057c.002.022.015.043.033.052a19.9 19.9 0 0 0 5.993 3.03.077.077 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>
-          </a>
-        </div>
-      </div>
-
-      <!-- Explore -->
+      <!-- Products -->
       <div class="footer-col">
-        <div class="footer-col-title">Explore</div>
-        <a href="/c/announcements">Announcements</a>
-        <a href="/c/support-help">Support Help</a>
-        <a href="/c/tutorials">Tutorials</a>
-        <a href="/c/feature-requests">Feature Requests</a>
-        <a href="/c/feature-roadmap">Roadmap</a>
-        <a href="/c/hire-a-retell-expert">Hire an Expert</a>
+        <div class="footer-section-heading">Products</div>
+        <div class="footer-subheading">Build</div>
+        <a href="https://docs.retellai.com/features/call-transfer" target="_blank" rel="noopener">Call Transfer</a>
+        <a href="https://docs.retellai.com/features/appointment-booking" target="_blank" rel="noopener">Book Appointments</a>
+        <a href="https://docs.retellai.com/features/knowledge-base" target="_blank" rel="noopener">Knowledge Base</a>
+        <a href="https://docs.retellai.com/features/ivr" target="_blank" rel="noopener">Navigate IVR</a>
+        <div class="footer-subheading">Deploy</div>
+        <a href="https://docs.retellai.com/features/batch-call" target="_blank" rel="noopener">Batch Call</a>
+        <a href="https://docs.retellai.com/features/branded-call-id" target="_blank" rel="noopener">Branded Call ID</a>
+        <a href="https://docs.retellai.com/features/verified-numbers" target="_blank" rel="noopener">Verified Phone Numbers</a>
+        <div class="footer-subheading">Monitor</div>
+        <a href="https://docs.retellai.com/features/post-call-analysis" target="_blank" rel="noopener">Post Call Analysis</a>
       </div>
 
       <!-- Resources -->
       <div class="footer-col">
-        <div class="footer-col-title">Resources</div>
+        <div class="footer-section-heading">Resources</div>
         <a href="https://docs.retellai.com" target="_blank" rel="noopener">Documentation</a>
         <a href="https://www.retellai.com/pricing" target="_blank" rel="noopener">Pricing</a>
         <a href="https://www.retellai.com/changelog" target="_blank" rel="noopener">Changelog</a>
+        <a href="https://www.retellai.com/blog" target="_blank" rel="noopener">Blog</a>
+        <a href="https://www.retellai.com/customer-stories" target="_blank" rel="noopener">Customer Stories</a>
         <a href="https://status.retellai.com" target="_blank" rel="noopener">Status Page</a>
-        <a href="/guidelines">Community Guidelines</a>
+        <div class="footer-subheading">Partners</div>
+        <a href="https://www.retellai.com/partners" target="_blank" rel="noopener">Find A Certified Partner</a>
+        <a href="https://www.retellai.com/app-partners" target="_blank" rel="noopener">App Partners</a>
+        <a href="https://www.retellai.com/creator-partners" target="_blank" rel="noopener">Creator Partners</a>
       </div>
 
       <!-- Company -->
       <div class="footer-col">
-        <div class="footer-col-title">Company</div>
+        <div class="footer-section-heading">Company</div>
         <a href="https://www.retellai.com/about-us" target="_blank" rel="noopener">About Us</a>
         <a href="https://www.retellai.com/careers" target="_blank" rel="noopener">Careers</a>
-        <a href="https://retell-partner-portal.lovable.app/" target="_blank" rel="noopener">Partner Portal</a>
-        <a href="https://www.retellai.com/partners" target="_blank" rel="noopener">Find a Partner</a>
         <a href="https://affiliate.retellai.com/login" target="_blank" rel="noopener">Affiliates</a>
+      </div>
+
+      <!-- Follow -->
+      <div class="footer-col">
+        <div class="footer-section-heading">Follow Us</div>
+        <a href="https://www.linkedin.com/company/retellai/" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://x.com/retellai" target="_blank" rel="noopener">X</a>
+        <a href="https://www.youtube.com/@retellai" target="_blank" rel="noopener">Youtube</a>
+        <a href="https://community.retellai.com" target="_blank" rel="noopener">Community</a>
+        <a href="https://discord.com/channels/1186424376300679209" target="_blank" rel="noopener">Discord</a>
       </div>
 
     </div>
 
     <!-- Bottom bar -->
     <div class="footer-bottom">
-      <span>© 2026 Retell AI. Powered by Discourse.</span>
+      <span>© 2026 Retell AI</span>
       <div class="footer-legal">
-        <a href="/legal/privacy-policy">Privacy Policy</a>
-        <a href="/legal/terms-of-service">Terms of Service</a>
         <a href="https://app.vanta.com/re-tell.ai/trust/8nfvavp5klt9n4iz32h90" target="_blank" rel="noopener">Trust Center</a>
+        <a href="/legal/privacy-policy">Privacy Policy</a>
+        <a href="#">HIPAA</a>
+        <a href="/legal/terms-of-service">Terms Of Service</a>
       </div>
     </div>
   </footer>
@@ -1521,35 +1589,50 @@
         }));
       initTicker(tickerTopics.length >= 3 ? tickerTopics : TICKER_FALLBACK);
 
-      // Topics table
-      const tbody      = document.querySelector('.topics-table tbody');
-      const tableTopics = rawTopics.filter(t => !t.pinned).slice(0, 8);
-      if (tbody && tableTopics.length) {
-        tbody.innerHTML = tableTopics.map(t => {
-          const cat    = catMap[t.category_id] || { name: 'General', slug: 'general', color: '#4f6ef7' };
-          const bg     = cat.color + '22';
+      // Topic cards
+      const topicsList  = document.querySelector('.topics-list');
+      const cardTopics  = rawTopics.filter(t => !t.pinned).slice(0, 8);
+      if (topicsList && cardTopics.length) {
+        // Palette for poster avatars when no photo available
+        const COLORS = ['#3b5998','#0f766e','#7c3aed','#b45309','#1d4ed8','#be123c','#166534','#9a3412'];
+        topicsList.innerHTML = cardTopics.map((t, i) => {
+          const cat     = catMap[t.category_id] || { name: 'General', slug: 'general', color: '#4f6ef7' };
           const replies = Math.max(0, t.posts_count - 1);
           const views   = fmtViews(t.views);
-          const hiView  = t.views >= 1000;
-          const avatars = (t.posters || []).slice(0, 4).map(p => {
+          const ago     = fmtRel(t.last_posted_at);
+
+          // Poster (first in posters list)
+          const poster  = t.posters?.[0];
+          const posterU = poster ? userList.find(x => x.id === poster.user_id) : null;
+          const posterAvatar = posterU?.avatar_template
+            ? `<img src="${dAvatar(posterU.avatar_template, 80)}" alt="${esc(posterU.username)}">`
+            : esc((posterU?.username || '?')[0].toUpperCase());
+          const avatarBg = posterU?.avatar_template ? 'transparent' : COLORS[i % COLORS.length];
+
+          // Participant avatars (skip poster, show up to 3 others)
+          const participants = (t.posters || []).slice(1, 4).map(p => {
             const u = userList.find(x => x.id === p.user_id);
             return u?.avatar_template
-              ? `<img class="topic-avatar" src="${dAvatar(u.avatar_template)}" alt="${esc(u.username)}">`
-              : `<div class="topic-avatar">${esc((u?.username || '?')[0].toUpperCase())}</div>`;
+              ? `<div class="topic-avatar"><img src="${dAvatar(u.avatar_template)}" alt="${esc(u.username)}"></div>`
+              : `<div class="topic-avatar" style="background:${COLORS[(i+2)%COLORS.length]};color:white">${esc((u?.username||'?')[0].toUpperCase())}</div>`;
           }).join('');
 
-          return `<tr>
-            <td>
-              <a class="topic-title" href="${DISCOURSE}/t/${esc(t.slug)}/${t.id}">${esc(t.title)}</a>
-              <div class="topic-meta">
-                <span class="category-badge" style="background:${bg};color:${cat.color}">${esc(cat.name)}</span>
+          const excerpt = esc(t.excerpt || '');
+
+          return `<div class="topic-card">
+            <div class="topic-poster-avatar" style="background:${avatarBg}">${posterAvatar}</div>
+            <div class="topic-card-body">
+              <a class="topic-card-title" href="${DISCOURSE}/t/${esc(t.slug)}/${t.id}">${esc(t.title)}</a>
+              <div class="topic-card-badges">
+                <span class="category-badge">${esc(cat.name)}</span>
               </div>
-            </td>
-            <td><div class="topic-avatars">${avatars}</div></td>
-            <td class="col-num"><span class="topic-num">${replies}</span></td>
-            <td class="col-num"><span class="topic-num${hiView ? ' highlight' : ''}">${views}</span></td>
-            <td class="col-time"><span class="topic-time">${fmtRel(t.last_posted_at)}</span></td>
-          </tr>`;
+              ${excerpt ? `<div class="topic-card-excerpt">${excerpt}</div>` : ''}
+              <div class="topic-card-footer">
+                <div class="topic-card-participants">${participants}</div>
+                <span class="topic-card-stats">${replies} replies · ${views} views · ${ago}</span>
+              </div>
+            </div>
+          </div>`;
         }).join('');
       }
 
