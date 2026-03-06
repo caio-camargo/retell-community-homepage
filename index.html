@@ -1030,6 +1030,7 @@
       // --- Header pill ---
       const dot  = document.getElementById('status-dot');
       const text = document.getElementById('status-text');
+      pill.hidden = (indicator === 'none');
       dot.style.background = cfg.dot;
       dot.classList.toggle('pulsing', indicator !== 'none');
       text.textContent = description;
