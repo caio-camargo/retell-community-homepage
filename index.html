@@ -269,17 +269,9 @@
       flex-shrink: 0;
       width: 320px;
       height: 280px;
-      background: rgba(255,255,255,0.07);
-      border-radius: 24px;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: rgba(255,255,255,0.3);
-      font-size: 13px;
-      border: 2px dashed rgba(255,255,255,0.15);
-      text-align: center;
-      padding: 24px;
-      line-height: 1.6;
     }
 
     /* ===== SHARED SECTION ===== */
@@ -764,10 +756,15 @@
   <!-- ===== HEADER ===== -->
   <header class="site-header">
     <a href="/" class="header-logo">
-      <!-- TODO: replace with actual Retell logo -->
-      <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-        <rect width="28" height="28" rx="7" fill="#00122e"/>
-        <text x="14" y="19" text-anchor="middle" font-size="13" fill="white" font-weight="bold" font-family="sans-serif">R</text>
+      <svg width="28" height="28" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="50"  cy="15"   r="10" fill="#00122e"/>
+        <circle cx="74.7" cy="25.3" r="10" fill="#00122e"/>
+        <circle cx="85"  cy="50"   r="10" fill="#00122e"/>
+        <circle cx="74.7" cy="74.7" r="10" fill="#00122e"/>
+        <circle cx="50"  cy="85"   r="10" fill="#00122e"/>
+        <circle cx="25.3" cy="74.7" r="10" fill="#00122e"/>
+        <circle cx="15"  cy="50"   r="10" fill="#00122e"/>
+        <circle cx="25.3" cy="25.3" r="10" fill="#00122e"/>
       </svg>
       Community
     </a>
@@ -829,8 +826,44 @@
       </div>
     </div>
     <div class="hero-illustration">
-      [ illustration / graphic ]<br>
-      <small style="opacity:0.5;margin-top:8px;display:block">placeholder — from Joey or brand assets</small>
+      <svg viewBox="0 0 320 280" xmlns="http://www.w3.org/2000/svg" fill="none" width="100%" height="100%">
+        <!-- Concentric rings -->
+        <circle cx="160" cy="140" r="118" stroke="rgba(255,255,255,0.06)" stroke-width="1.5"/>
+        <circle cx="160" cy="140" r="88"  stroke="rgba(255,255,255,0.08)" stroke-width="1.5"/>
+        <circle cx="160" cy="140" r="58"  stroke="rgba(255,255,255,0.1)"  stroke-width="1.5"/>
+
+        <!-- Voice waveform -->
+        <path d="M 55 140 Q 75 108 95 140 Q 115 172 135 140 Q 155 108 175 140 Q 195 172 215 140 Q 235 108 255 140 Q 265 156 270 140"
+              stroke="rgba(255,255,255,0.65)" stroke-width="2.5" stroke-linecap="round"/>
+
+        <!-- Outer glow on waveform -->
+        <path d="M 55 140 Q 75 108 95 140 Q 115 172 135 140 Q 155 108 175 140 Q 195 172 215 140 Q 235 108 255 140 Q 265 156 270 140"
+              stroke="rgba(255,255,255,0.12)" stroke-width="8" stroke-linecap="round"/>
+
+        <!-- Logo dot ring, outer orbit -->
+        <circle cx="160" cy="22"   r="6" fill="rgba(255,255,255,0.25)"/>
+        <circle cx="213" cy="37"   r="6" fill="rgba(255,255,255,0.18)"/>
+        <circle cx="248" cy="87"   r="6" fill="rgba(255,255,255,0.22)"/>
+        <circle cx="248" cy="193"  r="6" fill="rgba(255,255,255,0.18)"/>
+        <circle cx="213" cy="243"  r="6" fill="rgba(255,255,255,0.14)"/>
+        <circle cx="160" cy="258"  r="6" fill="rgba(255,255,255,0.20)"/>
+        <circle cx="107" cy="243"  r="6" fill="rgba(255,255,255,0.14)"/>
+        <circle cx="72"  cy="193"  r="6" fill="rgba(255,255,255,0.18)"/>
+        <circle cx="72"  cy="87"   r="6" fill="rgba(255,255,255,0.22)"/>
+        <circle cx="107" cy="37"   r="6" fill="rgba(255,255,255,0.18)"/>
+
+        <!-- Center pulse -->
+        <circle cx="160" cy="140" r="22" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.18)" stroke-width="1"/>
+        <circle cx="160" cy="140" r="10" fill="rgba(255,255,255,0.55)"/>
+
+        <!-- Connecting lines from center to outer dots -->
+        <line x1="160" y1="140" x2="160" y2="28"  stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
+        <line x1="160" y1="140" x2="248" y2="87"  stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
+        <line x1="160" y1="140" x2="248" y2="193" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
+        <line x1="160" y1="140" x2="160" y2="252" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
+        <line x1="160" y1="140" x2="72"  y2="193" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
+        <line x1="160" y1="140" x2="72"  y2="87"  stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
+      </svg>
     </div>
   </section>
 
