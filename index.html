@@ -265,6 +265,25 @@
 
     .hero-ticker-dot.active { background: rgba(255,255,255,0.9); }
 
+    /* Welcome link */
+    .hero-welcome-link {
+      margin-top: 16px;
+      font-size: 13px;
+      color: rgba(255,255,255,0.45);
+    }
+
+    .hero-welcome-link a {
+      color: rgba(255,255,255,0.7);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(255,255,255,0.25);
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .hero-welcome-link a:hover {
+      color: rgba(255,255,255,0.95);
+      border-color: rgba(255,255,255,0.6);
+    }
+
     /* Quick actions panel */
     .hero-actions {
       display: flex;
@@ -959,6 +978,7 @@
           <!-- populated by JS -->
         </div>
       </div>
+      <p class="hero-welcome-link">New to the community? <a href="/t/welcome">Read the welcome post →</a></p>
     </div>
     <div class="hero-actions">
       <a class="hero-action-card" href="/c/support-help">
