@@ -1553,25 +1553,7 @@
         }).join('');
       }
 
-      // Categories grid
-      const catGrid  = document.querySelector('.categories-grid');
-      const liveCats = (catData.category_list?.categories || [])
-        .filter(c => !c.parent_category_id)
-        .slice(0, 6);
-      if (catGrid && liveCats.length) {
-        catGrid.innerHTML = liveCats.map(c => {
-          const emoji = CAT_EMOJI[c.slug] || '📁';
-          const color = '#' + c.color;
-          const bg    = color + '22';
-          return `<a class="category-card" href="${DISCOURSE}/c/${esc(c.slug)}/${c.id}">
-            <div class="category-icon" style="background:${bg}">${emoji}</div>
-            <div class="category-info">
-              <h3>${esc(c.name)}</h3>
-              <p>${esc(c.description_text || '')}</p>
-            </div>
-          </a>`;
-        }).join('');
-      }
+      // Categories grid: using curated static HTML (API categories include subcategories that aren't useful here)
 
     }).catch(() => initTicker(TICKER_FALLBACK)); // silent fallback for ticker
 
