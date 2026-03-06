@@ -709,7 +709,7 @@
     </nav>
     <div class="header-actions">
       <!-- Status pill -->
-      <div class="status-pill" id="status-pill" title="System status" hidden>
+      <div class="status-pill" id="status-pill" title="System status">
         <span class="status-dot" id="status-dot"></span>
         <span id="status-text">All Systems Operational</span>
         <span class="status-chevron">▾</span>
@@ -1031,7 +1031,7 @@
       // --- Header pill ---
       const dot  = document.getElementById('status-dot');
       const text = document.getElementById('status-text');
-      pill.hidden = (indicator === 'none');
+      pill.hidden = false;
       dot.style.background = cfg.dot;
       dot.classList.toggle('pulsing', indicator !== 'none');
       text.textContent = description;
