@@ -1067,14 +1067,6 @@
       }
     }
 
-    async function fetchStatus() {
-      try {
-        const res  = await fetch(STATUS_API);
-        const data = await res.json();
-        applyStatus(data);
-      } catch (e) { /* silently fail */ }
-    }
-
     // Pill toggle
     const pill     = document.getElementById('status-pill');
     const dropdown = document.getElementById('status-dropdown');
@@ -1092,6 +1084,61 @@
     });
 
     dropdown.addEventListener('click', e => e.stopPropagation());
+
+    // ===== SIMULATION (staging only) =====
+    // Usage: ?simulate=minor|major|critical
+    const SIM_DATA = {
+      minor: {
+        page: { updated_at: new Date().toISOString() },
+        status: { indicator: 'minor', description: 'Minor Service Degradation' },
+        incidents: [{ name: 'Elevated latency on Web Call API', status: 'investigating' }],
+        components: [
+          { name: 'API',        status: 'degraded_performance', group: false },
+          { name: 'Web Call',   status: 'degraded_performance', group: false },
+          { name: 'Phone Call', status: 'operational',          group: false },
+          { name: 'Website',    status: 'operational',          group: false },
+          { name: 'Dashboard',  status: 'operational',          group: false },
+        ],
+      },
+      major: {
+        page: { updated_at: new Date().toISOString() },
+        status: { indicator: 'major', description: 'Partial Service Outage' },
+        incidents: [{ name: 'Phone Call and Web Call services experiencing disruptions', status: 'identified' }],
+        components: [
+          { name: 'API',        status: 'partial_outage', group: false },
+          { name: 'Web Call',   status: 'major_outage',   group: false },
+          { name: 'Phone Call', status: 'major_outage',   group: false },
+          { name: 'Website',    status: 'operational',    group: false },
+          { name: 'Dashboard',  status: 'operational',    group: false },
+        ],
+      },
+      critical: {
+        page: { updated_at: new Date().toISOString() },
+        status: { indicator: 'critical', description: 'Major System Outage' },
+        incidents: [{ name: 'All services down — engineers investigating', status: 'identified' }],
+        components: [
+          { name: 'API',        status: 'major_outage', group: false },
+          { name: 'Web Call',   status: 'major_outage', group: false },
+          { name: 'Phone Call', status: 'major_outage', group: false },
+          { name: 'Website',    status: 'major_outage', group: false },
+          { name: 'Dashboard',  status: 'major_outage', group: false },
+        ],
+      },
+    };
+
+    const simParam = new URLSearchParams(window.location.search).get('simulate');
+
+    async function fetchStatus() {
+      if (simParam && SIM_DATA[simParam]) {
+        applyStatus(SIM_DATA[simParam]);
+        return;
+      }
+      try {
+        const res  = await fetch(STATUS_API);
+        const data = await res.json();
+        applyStatus(data);
+      } catch (e) { /* silently fail */ }
+    }
 
     // Boot
     fetchStatus();
