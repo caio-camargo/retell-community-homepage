@@ -1448,9 +1448,13 @@
     const DISCOURSE = 'https://community.retellai.com';
     const API_KEY   = '9e7c8de28ac4722c42558d4af7443cbe7982f0746bb1fe540188bfd7fa5ea543';
 
+    // CORS proxy for GitHub Pages mockup only — remove when deploying as Discourse theme component
+    const CORS_PROXY = 'https://corsproxy.io/?';
+
     function dUrl(path) {
       const sep = path.includes('?') ? '&' : '?';
-      return `${DISCOURSE}${path}${sep}api_key=${API_KEY}&api_username=system`;
+      const target = `${DISCOURSE}${path}${sep}api_key=${API_KEY}&api_username=system`;
+      return CORS_PROXY + encodeURIComponent(target);
     }
 
     const CAT_EMOJI = {
