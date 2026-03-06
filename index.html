@@ -987,6 +987,13 @@
       display: flex;
       gap: 20px;
     }
+
+    /* Avatars from API */
+    img.topic-avatar,
+    img.contributor-avatar {
+      object-fit: cover;
+      display: block;
+    }
   </style>
 </head>
 <body>
@@ -1437,17 +1444,165 @@
       timer = setInterval(() => goTo(current + 1), 4500);
     }
 
-    // Try live topics; fall back to mocked data (e.g. on GitHub Pages due to CORS)
-    fetch('https://community.retellai.com/latest.json')
+    // ===== DISCOURSE API =====
+    const DISCOURSE = 'https://community.retellai.com';
+    const API_KEY   = '9e7c8de28ac4722c42558d4af7443cbe7982f0746bb1fe540188bfd7fa5ea543';
+
+    function dUrl(path) {
+      const sep = path.includes('?') ? '&' : '?';
+      return `${DISCOURSE}${path}${sep}api_key=${API_KEY}&api_username=system`;
+    }
+
+    const CAT_EMOJI = {
+      'announcements':        '📢',
+      'support-help':         '❓',
+      'tutorials':            '📚',
+      'feature-requests':     '💡',
+      'feature-roadmap':      '🗺️',
+      'hire-a-retell-expert': '🤝',
+      'general':              '💬',
+    };
+
+    function fmtRel(iso) {
+      const s = (Date.now() - new Date(iso)) / 1000;
+      if (s < 3600)    return `${Math.round(s / 60)}m`;
+      if (s < 86400)   return `${Math.round(s / 3600)}h`;
+      if (s < 604800)  return `${Math.round(s / 86400)}d`;
+      if (s < 2592000) return `${Math.round(s / 604800)}w`;
+      return `${Math.round(s / 2592000)}mo`;
+    }
+
+    function dAvatar(tmpl, size = 40) {
+      return DISCOURSE + tmpl.replace('{size}', size);
+    }
+
+    function esc(s) {
+      return String(s)
+        .replace(/&/g, '&amp;').replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+
+    function fmtViews(n) {
+      return n >= 1000 ? (n / 1000).toFixed(n >= 10000 ? 0 : 1) + 'k' : n;
+    }
+
+    // --- Topics + Categories (parallel) ---
+    Promise.all([
+      fetch(dUrl('/categories.json')).then(r => r.json()),
+      fetch(dUrl('/latest.json')).then(r => r.json()),
+    ]).then(([catData, topicData]) => {
+
+      // Build category map: id → {name, slug, color, desc}
+      const catMap = {};
+      (catData.category_list?.categories || []).forEach(c => {
+        catMap[c.id] = {
+          name:  c.name,
+          slug:  c.slug,
+          color: '#' + c.color,
+          desc:  c.description_text || '',
+        };
+      });
+
+      const rawTopics = topicData.topic_list?.topics || [];
+      const userList  = topicData.users || [];
+
+      // Ticker — real topics with real category names
+      const tickerTopics = rawTopics
+        .filter(t => !t.pinned && t.posts_count > 0)
+        .slice(0, 5)
+        .map(t => ({
+          title:    t.title,
+          category: catMap[t.category_id]?.name || 'Community',
+          url:      `${DISCOURSE}/t/${esc(t.slug)}/${t.id}`,
+        }));
+      initTicker(tickerTopics.length >= 3 ? tickerTopics : TICKER_FALLBACK);
+
+      // Topics table
+      const tbody      = document.querySelector('.topics-table tbody');
+      const tableTopics = rawTopics.filter(t => !t.pinned).slice(0, 8);
+      if (tbody && tableTopics.length) {
+        tbody.innerHTML = tableTopics.map(t => {
+          const cat    = catMap[t.category_id] || { name: 'General', slug: 'general', color: '#4f6ef7' };
+          const bg     = cat.color + '22';
+          const replies = Math.max(0, t.posts_count - 1);
+          const views   = fmtViews(t.views);
+          const hiView  = t.views >= 1000;
+          const avatars = (t.posters || []).slice(0, 4).map(p => {
+            const u = userList.find(x => x.id === p.user_id);
+            return u?.avatar_template
+              ? `<img class="topic-avatar" src="${dAvatar(u.avatar_template)}" alt="${esc(u.username)}">`
+              : `<div class="topic-avatar">${esc((u?.username || '?')[0].toUpperCase())}</div>`;
+          }).join('');
+
+          return `<tr>
+            <td>
+              <a class="topic-title" href="${DISCOURSE}/t/${esc(t.slug)}/${t.id}">${esc(t.title)}</a>
+              <div class="topic-meta">
+                <span class="category-badge" style="background:${bg};color:${cat.color}">${esc(cat.name)}</span>
+              </div>
+            </td>
+            <td><div class="topic-avatars">${avatars}</div></td>
+            <td class="col-num"><span class="topic-num">${replies}</span></td>
+            <td class="col-num"><span class="topic-num${hiView ? ' highlight' : ''}">${views}</span></td>
+            <td class="col-time"><span class="topic-time">${fmtRel(t.last_posted_at)}</span></td>
+          </tr>`;
+        }).join('');
+      }
+
+      // Categories grid
+      const catGrid  = document.querySelector('.categories-grid');
+      const liveCats = (catData.category_list?.categories || [])
+        .filter(c => !c.parent_category_id)
+        .slice(0, 6);
+      if (catGrid && liveCats.length) {
+        catGrid.innerHTML = liveCats.map(c => {
+          const emoji = CAT_EMOJI[c.slug] || '📁';
+          const color = '#' + c.color;
+          const bg    = color + '22';
+          return `<a class="category-card" href="${DISCOURSE}/c/${esc(c.slug)}/${c.id}">
+            <div class="category-icon" style="background:${bg}">${emoji}</div>
+            <div class="category-info">
+              <h3>${esc(c.name)}</h3>
+              <p>${esc(c.description_text || '')}</p>
+            </div>
+          </a>`;
+        }).join('');
+      }
+
+    }).catch(() => initTicker(TICKER_FALLBACK)); // silent fallback for ticker
+
+    // --- Top Contributors ---
+    fetch(dUrl('/directory_items.json?period=monthly&order=likes_received'))
       .then(r => r.json())
       .then(data => {
-        const topics = (data.topic_list?.topics || [])
-          .filter(t => !t.pinned && t.posts_count > 0)
-          .slice(0, 5)
-          .map(t => ({ title: t.title, category: 'Community', url: `/t/${t.slug}/${t.id}` }));
-        initTicker(topics.length >= 3 ? topics : TICKER_FALLBACK);
+        const items = (data.directory_items || []).slice(0, 5);
+        if (!items.length) return;
+        const card = document.querySelector('.contributors-card');
+        if (!card) return;
+        const headerText = card.querySelector('.contributors-card-header')?.textContent || 'Monthly top contributors';
+        card.innerHTML = `<div class="contributors-card-header">${headerText}</div>` +
+          items.map(item => {
+            const u       = item.user;
+            const display = u.name || u.username;
+            const count   = item.likes_received || item.post_count || 0;
+            const label   = item.likes_received > 0 ? 'Likes' : 'Posts';
+            const avatar  = u.avatar_template
+              ? `<img class="contributor-avatar" src="${dAvatar(u.avatar_template, 80)}" alt="${esc(u.username)}">`
+              : `<div class="contributor-avatar">${esc(display.slice(0, 2).toUpperCase())}</div>`;
+            return `<div class="contributor-row">
+              ${avatar}
+              <div class="contributor-info">
+                <div class="contributor-name">${esc(u.username)}</div>
+                <div class="contributor-handle">${display !== u.username ? esc(display) : ''}</div>
+              </div>
+              <div class="contributor-count">
+                <div class="contributor-count-num">${count}</div>
+                <div class="contributor-count-label">${label}</div>
+              </div>
+            </div>`;
+          }).join('');
       })
-      .catch(() => initTicker(TICKER_FALLBACK));
+      .catch(() => {}); // keep static fallback on failure
 
     // ===== STATUS WIDGET =====
     const STATUS_API    = 'https://status.retellai.com/api/v2/summary.json';
