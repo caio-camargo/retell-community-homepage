@@ -545,39 +545,32 @@
       font-weight: 500;
     }
 
-    .topic-card-excerpt {
-      font-size: 13px;
-      color: var(--gray-600);
-      line-height: 1.55;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-      margin-bottom: 10px;
-    }
-
-    .topic-card-footer {
+    /* Title row: title left, participant avatars right */
+    .topic-card-title-row {
       display: flex;
-      align-items: center;
-      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 6px;
     }
 
     .topic-card-participants {
       display: flex;
       align-items: center;
+      flex-shrink: 0;
+      margin-top: 3px;
     }
 
     .topic-avatar {
-      width: 24px;
-      height: 24px;
+      width: 22px;
+      height: 22px;
       border-radius: 50%;
       background: var(--gray-300);
       border: 2px solid white;
-      margin-left: -5px;
+      margin-left: -6px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 9px;
+      font-size: 8px;
       font-weight: 700;
       color: var(--gray-700);
       overflow: hidden;
@@ -593,9 +586,21 @@
       display: block;
     }
 
+    .topic-card-excerpt {
+      font-size: 13px;
+      color: var(--gray-600);
+      line-height: 1.55;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      margin-bottom: 8px;
+    }
+
     .topic-card-stats {
       font-size: 12px;
       color: var(--gray-600);
+      text-align: right;
       white-space: nowrap;
     }
 
@@ -1236,61 +1241,61 @@
       <div class="topic-card">
         <div class="topic-poster-avatar" style="background:#3b5998">A</div>
         <div class="topic-card-body">
-          <a class="topic-card-title" href="#">How do I handle interruptions mid-sentence?</a>
+          <div class="topic-card-title-row">
+            <a class="topic-card-title" href="#">How do I handle interruptions mid-sentence?</a>
+            <div class="topic-card-participants"><div class="topic-avatar">A</div><div class="topic-avatar">B</div><div class="topic-avatar">C</div></div>
+          </div>
           <div class="topic-card-badges"><span class="category-badge">Support Help</span></div>
           <div class="topic-card-excerpt">Looking for the best approach to handle mid-sentence interruptions in Retell agents without breaking the conversation flow...</div>
-          <div class="topic-card-footer">
-            <div class="topic-card-participants"><div class="topic-avatar">A</div><div class="topic-avatar">B</div><div class="topic-avatar">C</div></div>
-            <span class="topic-card-stats">12 replies · 843 views · 2h</span>
-          </div>
+          <span class="topic-card-stats">12 replies · 843 views · 2h</span>
         </div>
       </div>
       <div class="topic-card">
         <div class="topic-poster-avatar" style="background:#0f766e">D</div>
         <div class="topic-card-body">
-          <a class="topic-card-title" href="#">Custom LLM integration — best practices</a>
+          <div class="topic-card-title-row">
+            <a class="topic-card-title" href="#">Custom LLM integration — best practices</a>
+            <div class="topic-card-participants"><div class="topic-avatar">D</div><div class="topic-avatar">E</div></div>
+          </div>
           <div class="topic-card-badges"><span class="category-badge">Tutorials</span></div>
           <div class="topic-card-excerpt">Sharing a few patterns I've found useful when integrating custom LLMs with Retell's streaming API...</div>
-          <div class="topic-card-footer">
-            <div class="topic-card-participants"><div class="topic-avatar">D</div><div class="topic-avatar">E</div></div>
-            <span class="topic-card-stats">7 replies · 2.1k views · 5h</span>
-          </div>
+          <span class="topic-card-stats">7 replies · 2.1k views · 5h</span>
         </div>
       </div>
       <div class="topic-card">
         <div class="topic-poster-avatar" style="background:#7c3aed">F</div>
         <div class="topic-card-body">
-          <a class="topic-card-title" href="#">Feature Request: Dynamic voice switching per call</a>
+          <div class="topic-card-title-row">
+            <a class="topic-card-title" href="#">Feature Request: Dynamic voice switching per call</a>
+            <div class="topic-card-participants"><div class="topic-avatar">F</div><div class="topic-avatar">G</div><div class="topic-avatar">H</div><div class="topic-avatar">I</div></div>
+          </div>
           <div class="topic-card-badges"><span class="category-badge">Feature Requests</span></div>
           <div class="topic-card-excerpt">It would be really useful to switch the voice model mid-call based on caller language detection...</div>
-          <div class="topic-card-footer">
-            <div class="topic-card-participants"><div class="topic-avatar">F</div><div class="topic-avatar">G</div><div class="topic-avatar">H</div><div class="topic-avatar">I</div></div>
-            <span class="topic-card-stats">28 replies · 1.4k views · 1d</span>
-          </div>
+          <span class="topic-card-stats">28 replies · 1.4k views · 1d</span>
         </div>
       </div>
       <div class="topic-card">
         <div class="topic-poster-avatar" style="background:#b45309">J</div>
         <div class="topic-card-body">
-          <a class="topic-card-title" href="#">Webhook not firing on call end — anyone else?</a>
+          <div class="topic-card-title-row">
+            <a class="topic-card-title" href="#">Webhook not firing on call end — anyone else?</a>
+            <div class="topic-card-participants"><div class="topic-avatar">J</div><div class="topic-avatar">K</div></div>
+          </div>
           <div class="topic-card-badges"><span class="category-badge">Support Help</span></div>
           <div class="topic-card-excerpt">I've set up my call_ended webhook but it's not triggering consistently. Seeing about a 20% drop rate...</div>
-          <div class="topic-card-footer">
-            <div class="topic-card-participants"><div class="topic-avatar">J</div><div class="topic-avatar">K</div></div>
-            <span class="topic-card-stats">5 replies · 312 views · 3d</span>
-          </div>
+          <span class="topic-card-stats">5 replies · 312 views · 3d</span>
         </div>
       </div>
       <div class="topic-card">
         <div class="topic-poster-avatar" style="background:#1d4ed8">R</div>
         <div class="topic-card-body">
-          <a class="topic-card-title" href="#">Announcing Retell AI v2.4 — new STT model</a>
+          <div class="topic-card-title-row">
+            <a class="topic-card-title" href="#">Announcing Retell AI v2.4 — new STT model</a>
+            <div class="topic-card-participants"><div class="topic-avatar">R</div></div>
+          </div>
           <div class="topic-card-badges"><span class="category-badge">Announcements</span></div>
           <div class="topic-card-excerpt">We're excited to announce Retell AI v2.4, featuring our new low-latency speech-to-text model with improved accuracy...</div>
-          <div class="topic-card-footer">
-            <div class="topic-card-participants"><div class="topic-avatar">R</div></div>
-            <span class="topic-card-stats">41 replies · 5.7k views · 1w</span>
-          </div>
+          <span class="topic-card-stats">41 replies · 5.7k views · 1w</span>
         </div>
       </div>
     </div>
@@ -1622,15 +1627,15 @@
           return `<div class="topic-card">
             <div class="topic-poster-avatar" style="background:${avatarBg}">${posterAvatar}</div>
             <div class="topic-card-body">
-              <a class="topic-card-title" href="${DISCOURSE}/t/${esc(t.slug)}/${t.id}">${esc(t.title)}</a>
+              <div class="topic-card-title-row">
+                <a class="topic-card-title" href="${DISCOURSE}/t/${esc(t.slug)}/${t.id}">${esc(t.title)}</a>
+                <div class="topic-card-participants">${participants}</div>
+              </div>
               <div class="topic-card-badges">
                 <span class="category-badge">${esc(cat.name)}</span>
               </div>
               ${excerpt ? `<div class="topic-card-excerpt">${excerpt}</div>` : ''}
-              <div class="topic-card-footer">
-                <div class="topic-card-participants">${participants}</div>
-                <span class="topic-card-stats">${replies} replies · ${views} views · ${ago}</span>
-              </div>
+              <span class="topic-card-stats">${replies} replies · ${views} views · ${ago}</span>
             </div>
           </div>`;
         }).join('');
