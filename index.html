@@ -468,9 +468,7 @@
     .topics-list {
       display: flex;
       flex-direction: column;
-      border: 1px solid var(--gray-200);
-      border-radius: 12px;
-      overflow: hidden;
+      gap: 10px;
     }
 
     .topic-card {
@@ -479,11 +477,11 @@
       gap: 14px;
       padding: 16px 20px;
       background: white;
-      border-bottom: 1px solid var(--gray-200);
+      border: 1px solid var(--gray-200);
+      border-radius: 12px;
       transition: background 0.15s;
     }
 
-    .topic-card:last-child { border-bottom: none; }
     .topic-card:hover { background: var(--gray-100); }
 
     .topic-poster-avatar {
