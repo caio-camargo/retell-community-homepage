@@ -604,18 +604,14 @@
       white-space: nowrap;
     }
 
-    /* ===== CONTRIBUTORS + QUOTE ===== */
-    .contributors-section {
-      background: var(--gray-100);
-      padding: 72px 48px;
-    }
-
-    .contributors-inner {
+    /* ===== TOPICS + LEADERBOARD SIDE BY SIDE ===== */
+    .topics-with-sidebar {
       max-width: 1200px;
       margin: 0 auto;
+      padding: 72px 48px;
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 40px;
+      grid-template-columns: 1fr 300px;
+      gap: 48px;
       align-items: start;
     }
 
@@ -682,37 +678,6 @@
     .contributor-count-label {
       font-size: 11px;
       color: var(--gray-600);
-    }
-
-    .quote-card {
-      background: var(--navy);
-      border-radius: 16px;
-      padding: 40px;
-      color: white;
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-      height: 100%;
-    }
-
-    .quote-mark {
-      font-size: 72px;
-      line-height: 0.6;
-      font-weight: 700;
-      opacity: 0.35;
-      font-family: Georgia, serif;
-    }
-
-    .quote-text {
-      font-size: 19px;
-      line-height: 1.65;
-      opacity: 0.95;
-    }
-
-    .quote-author {
-      font-size: 14px;
-      opacity: 0.55;
-      margin-top: auto;
     }
 
     /* ===== CATEGORIES ===== */
@@ -1250,8 +1215,9 @@
     </div>
   </div>
 
-  <!-- ===== COMMUNITY TOPICS ===== -->
-  <div class="section">
+  <!-- ===== COMMUNITY TOPICS + LEADERBOARD ===== -->
+  <div class="topics-with-sidebar">
+    <div>
     <h2 class="section-title">Community Topics</h2>
     <div class="topics-header">
       <span class="tag-pill">Latest</span>
@@ -1319,12 +1285,9 @@
         </div>
       </div>
     </div>
-  </div>
+    </div><!-- end topics col -->
 
-  <!-- ===== TOP CONTRIBUTORS + QUOTE ===== -->
-  <div class="contributors-section">
-    <div class="contributors-inner">
-      <div class="contributors-card">
+    <div class="contributors-card">
         <div class="contributors-card-header">Monthly top contributors</div>
         <div class="contributor-row">
           <div class="contributor-avatar">JD</div>
@@ -1382,14 +1345,8 @@
           </div>
         </div>
       </div>
-
-      <div class="quote-card">
-        <div class="quote-mark">"</div>
-        <p class="quote-text">The Retell community has been invaluable — every time I hit a wall, someone here has already solved it. It's like having a team of expert voice AI engineers on call.</p>
-        <div class="quote-author">— Community member placeholder</div>
-      </div>
-    </div>
-  </div>
+    </div><!-- end contributors-card -->
+  </div><!-- end topics-with-sidebar -->
 
   <!-- ===== CERTIFIED PARTNER ===== -->
   <section class="partner-section">
@@ -1489,9 +1446,9 @@
       <span>© 2026 Retell AI</span>
       <div class="footer-legal">
         <a href="https://app.vanta.com/re-tell.ai/trust/8nfvavp5klt9n4iz32h90" target="_blank" rel="noopener">Trust Center</a>
-        <a href="/legal/privacy-policy">Privacy Policy</a>
-        <a href="#">HIPAA</a>
-        <a href="/legal/terms-of-service">Terms Of Service</a>
+        <a href="https://www.retellai.com/legal/privacy-policy" target="_blank" rel="noopener">Privacy Policy</a>
+        <a href="https://www.retellai.com/legal/hipaa" target="_blank" rel="noopener">HIPAA</a>
+        <a href="https://www.retellai.com/legal/terms-of-service" target="_blank" rel="noopener">Terms Of Service</a>
       </div>
     </div>
   </footer>
