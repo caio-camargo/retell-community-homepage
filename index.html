@@ -877,92 +877,12 @@
 
     .status-banner-link:hover { opacity: 1; }
 
-    /* ===== NEWSLETTER STRIP ===== */
-    .footer-newsletter {
-      background: linear-gradient(135deg, #0a1628 0%, #1a1060 50%, #0d1f3c 100%);
-      padding: 56px 48px 88px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .footer-newsletter-noise {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      opacity: 0.18;
-      mix-blend-mode: overlay;
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    .footer-newsletter-inner {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 48px;
-      position: relative;
-      z-index: 1;
-    }
-
-    .footer-newsletter-text {
-      font-size: 20px;
-      font-weight: 500;
-      color: white;
-      max-width: 340px;
-      line-height: 1.4;
-    }
-
-    .footer-newsletter-form {
-      display: flex;
-      background: white;
-      border-radius: 100px;
-      overflow: hidden;
-      flex: 1;
-      max-width: 540px;
-      min-width: 0;
-    }
-
-    .footer-newsletter-form input {
-      flex: 1;
-      border: none;
-      outline: none;
-      padding: 16px 24px;
-      font-size: 15px;
-      font-family: inherit;
-      background: transparent;
-      color: var(--gray-800);
-      min-width: 0;
-    }
-
-    .footer-newsletter-form input::placeholder { color: var(--gray-600); }
-
-    .footer-newsletter-form button {
-      background: var(--navy);
-      color: white;
-      border: none;
-      padding: 16px 32px;
-      font-size: 15px;
-      font-weight: 600;
-      font-family: inherit;
-      cursor: pointer;
-      border-radius: 100px;
-      transition: background 0.2s;
-      white-space: nowrap;
-    }
-
-    .footer-newsletter-form button:hover { background: #001a45; }
-
     /* ===== FOOTER ===== */
     .site-footer {
       background: var(--gray-100);
       color: var(--gray-700);
       font-size: 14px;
-      margin-top: -44px;
-      position: relative;
-      z-index: 2;
+      border-top: 1px solid var(--gray-200);
     }
 
     .site-footer a {
@@ -1369,23 +1289,6 @@
     </div>
   </section>
 
-  <!-- ===== NEWSLETTER STRIP ===== -->
-  <div class="footer-newsletter">
-    <svg class="footer-newsletter-noise" viewBox="0 0 2000 2000" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" aria-hidden="true">
-      <filter id="noiseFilter">
-        <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"></feTurbulence>
-      </filter>
-      <rect width="100%" height="100%" filter="url(#noiseFilter)"></rect>
-    </svg>
-    <div class="footer-newsletter-inner">
-      <p class="footer-newsletter-text">Subscribe to our newsletter for our product updates.</p>
-      <form class="footer-newsletter-form" onsubmit="return false;">
-        <input type="email" placeholder="Your email">
-        <button type="submit">Submit</button>
-      </form>
-    </div>
-  </div>
-
   <!-- ===== FOOTER ===== -->
   <footer class="site-footer">
     <div class="footer-inner">
@@ -1394,16 +1297,16 @@
       <div class="footer-col">
         <div class="footer-section-heading">Products</div>
         <div class="footer-subheading">Build</div>
-        <a href="https://docs.retellai.com/features/call-transfer" target="_blank" rel="noopener">Call Transfer</a>
-        <a href="https://docs.retellai.com/features/appointment-booking" target="_blank" rel="noopener">Book Appointments</a>
-        <a href="https://docs.retellai.com/features/knowledge-base" target="_blank" rel="noopener">Knowledge Base</a>
-        <a href="https://docs.retellai.com/features/ivr" target="_blank" rel="noopener">Navigate IVR</a>
+        <a href="https://www.retellai.com/features/call-transfer" target="_blank" rel="noopener">Call Transfer</a>
+        <a href="https://www.retellai.com/features/book-appointments" target="_blank" rel="noopener">Book Appointments</a>
+        <a href="https://www.retellai.com/features/knowledge-base" target="_blank" rel="noopener">Knowledge Base</a>
+        <a href="https://www.retellai.com/features/navigate-ivr" target="_blank" rel="noopener">Navigate IVR</a>
         <div class="footer-subheading">Deploy</div>
-        <a href="https://docs.retellai.com/features/batch-call" target="_blank" rel="noopener">Batch Call</a>
-        <a href="https://docs.retellai.com/features/branded-call-id" target="_blank" rel="noopener">Branded Call ID</a>
-        <a href="https://docs.retellai.com/features/verified-numbers" target="_blank" rel="noopener">Verified Phone Numbers</a>
+        <a href="https://www.retellai.com/features/batch-call" target="_blank" rel="noopener">Batch Call</a>
+        <a href="https://www.retellai.com/features/branded-call-id" target="_blank" rel="noopener">Branded Call ID</a>
+        <a href="https://www.retellai.com/features/verified-phone-numbers" target="_blank" rel="noopener">Verified Phone Numbers</a>
         <div class="footer-subheading">Monitor</div>
-        <a href="https://docs.retellai.com/features/post-call-analysis" target="_blank" rel="noopener">Post Call Analysis</a>
+        <a href="https://www.retellai.com/features/post-call-analysis" target="_blank" rel="noopener">Post Call Analysis</a>
       </div>
 
       <!-- Resources -->
@@ -1413,12 +1316,12 @@
         <a href="https://www.retellai.com/pricing" target="_blank" rel="noopener">Pricing</a>
         <a href="https://www.retellai.com/changelog" target="_blank" rel="noopener">Changelog</a>
         <a href="https://www.retellai.com/blog" target="_blank" rel="noopener">Blog</a>
-        <a href="https://www.retellai.com/customer-stories" target="_blank" rel="noopener">Customer Stories</a>
+        <a href="https://www.retellai.com/customers" target="_blank" rel="noopener">Customer Stories</a>
         <a href="https://status.retellai.com" target="_blank" rel="noopener">Status Page</a>
         <div class="footer-subheading">Partners</div>
         <a href="https://www.retellai.com/partners" target="_blank" rel="noopener">Find A Certified Partner</a>
-        <a href="https://www.retellai.com/app-partners" target="_blank" rel="noopener">App Partners</a>
-        <a href="https://www.retellai.com/creator-partners" target="_blank" rel="noopener">Creator Partners</a>
+        <a href="https://www.retellai.com/app-partner" target="_blank" rel="noopener">App Partners</a>
+        <a href="https://affiliate.retellai.com/login?_gl=1*1l2oukl*_gcl_au*MTIxNzI1OTE1Mi4xNzcxODkxOTQzLjE1NjI5OTY3NzIuMTc3MjA2NjcyMC4xNzcyMDY2NzIw" target="_blank" rel="noopener">Creator Partners</a>
       </div>
 
       <!-- Company -->
